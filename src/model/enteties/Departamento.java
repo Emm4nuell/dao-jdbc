@@ -7,7 +7,7 @@ public class Departamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int Id;
+	private Integer id;
 	private String name;
 
 	public Departamento() {
@@ -15,16 +15,16 @@ public class Departamento implements Serializable {
 
 	public Departamento(int id, String name) {
 		super();
-		Id = id;
+		this.id = id;
 		this.name = name;
 	}
 
-	public int getId() {
-		return Id;
+	public Integer getId() {
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 
 	public String getName() {
@@ -38,7 +38,7 @@ public class Departamento implements Serializable {
 	/* Sera necessário verificar qual finalidade do hashCode e equals */
 	@Override
 	public int hashCode() {
-		return Objects.hash(Id);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -50,12 +50,12 @@ public class Departamento implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Departamento other = (Departamento) obj;
-		return Id == other.Id;
+		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "Departament [Id=" + Id + ", name=" + name + "]";
+		return "Departament [id=" + id + ", name=" + name + "]";
 	}
 
 }
