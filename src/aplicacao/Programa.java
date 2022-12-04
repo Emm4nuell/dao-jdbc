@@ -49,6 +49,11 @@ public class Programa {
 		vendedoru.setNome("Maria Eduarda");
 		vdao.update(vendedoru);
 		System.out.println("Atualização concluida!");
+		
+		System.out.println("\n=== Teste 6 : deletar ===");
+		
+		vdao.deletById(5);
+		System.out.println("Dados deletado com sucesso!");
 	}
 
 }
