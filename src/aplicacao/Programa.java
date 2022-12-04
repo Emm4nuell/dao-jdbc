@@ -1,6 +1,8 @@
 package aplicacao;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.VendedorDao;
@@ -25,6 +27,14 @@ public class Programa {
 		System.out.println("=== Teste 1 : finById ===");
 		Vendedor vendedor = vdao.findById(3);
 		System.out.println(vendedor);
+		
+		System.out.println("\n=== Teste 2 : finByDepartamento ===");
+		Departamento departamento = new Departamento(2, null);
+		List<Vendedor> list = vdao.findByIdDepartamento(departamento);
+		
+		for (Vendedor vend : list) {
+			System.out.println(vend);
+		}
 	}
 
 }
