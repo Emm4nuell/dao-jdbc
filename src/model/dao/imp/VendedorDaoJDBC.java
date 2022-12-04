@@ -109,8 +109,51 @@ public class VendedorDaoJDBC implements VendedorDao {
 
 	@Override
 	public List<Vendedor> finAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			st = conn.prepareStatement("SELECT seller.*,department.Name as DepName "
+					+ "FROM seller INNER JOIN department " + "ON seller.DepartmentId = department.Id ORDER BY Name");
+
+			rs = st.executeQuery();
+
+			List<Vendedor> list = new ArrayList<>();
+
+			/* Sera comparado se esta havendo repetição dos dados pesquisado */
+			Map<Integer, Departamento> map = new HashMap<>();
+
+			/* Lista de resultados */
+			while (rs.next()) {
+
+				/* Se o departamento n estiver instaciado o dep recebera null */
+				Departamento dep = map.get(rs.getInt("DepartmentId"));
+
+				if (dep == null) {
+					/*
+					 * Esta sendo instanciado para que o codigo fique mais organizado
+					 * instDepartamento
+					 */
+					dep = instDepartamento(rs);
+					/* Sera salvo o departamento em map para n ser mais null */
+					map.put(rs.getInt("DepartmentId"), dep);
+				}
+
+				/*
+				 * Esta sendo instanciado para que o codigo fique mais organizado instVendedor
+				 */
+				Vendedor vend = instVendedor(rs, dep);
+				list.add(vend);
+
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			/* Fecha as conexoes do st e rs */
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	/*

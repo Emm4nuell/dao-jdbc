@@ -32,7 +32,11 @@ public class Programa {
 		Departamento departamento = new Departamento(2, null);
 		List<Vendedor> list = vdao.findByIdDepartamento(departamento);
 		
-		for (Vendedor vend : list) {
+		System.out.println("\n=== Teste 3 : finAll ===");
+		
+		List<Vendedor> lsvend = vdao.finAll();
+		
+		for (Vendedor vend : lsvend) {
 			System.out.println(vend);
 		}
 	}
