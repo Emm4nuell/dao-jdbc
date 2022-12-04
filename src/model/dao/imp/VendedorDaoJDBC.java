@@ -56,31 +56,49 @@ public class VendedorDaoJDBC implements VendedorDao {
 			// Se haver algum resultado no banco de dados o mesmo sera true e executara a
 			// pesquisa
 			if (rs.next()) {
-				Departamento dep = new Departamento();
-				dep.setId(rs.getInt("DepartmentId"));
-				dep.setName(rs.getString("DepName"));
+				Departamento dep = instDepartamento(rs);
 
-				Vendedor vend = new Vendedor();
-				vend.setId(rs.getInt("Id"));
-				vend.setNome(rs.getString("Name"));
-				vend.setEmail(rs.getString("Email"));
-				vend.setSalarioBase(rs.getDouble("BaseSalary"));
-				vend.setDataNascimento(rs.getDate("BirthDate"));
-				vend.setDepartamento(dep);
+				Vendedor vend = instVendedor(rs, dep);
+
 				return vend;
 			}
 			return null;
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		} finally {
-			/*Fecha as conexoes do st e rs*/
+			/* Fecha as conexoes do st e rs */
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
 	}
 
+	private Vendedor instVendedor(ResultSet rs, Departamento dep) throws SQLException {
+		Vendedor vend = new Vendedor();
+		vend.setId(rs.getInt("Id"));
+		vend.setNome(rs.getString("Name"));
+		vend.setEmail(rs.getString("Email"));
+		vend.setSalarioBase(rs.getDouble("BaseSalary"));
+		vend.setDataNascimento(rs.getDate("BirthDate"));
+		vend.setDepartamento(dep);
+		return vend;
+	}
+
+	private Departamento instDepartamento(ResultSet rs) throws SQLException {
+		Departamento dep = new Departamento();
+		dep.setId(rs.getInt("DepartmentId"));
+		dep.setName(rs.getString("DepName"));
+
+		return dep;
+	}
+
 	@Override
 	public List<Vendedor> finAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Vendedor> findByIdDepartamento(Departamento departamento) {
 		// TODO Auto-generated method stub
 		return null;
 	}
