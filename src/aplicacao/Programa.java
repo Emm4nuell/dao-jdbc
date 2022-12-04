@@ -33,12 +33,16 @@ public class Programa {
 		List<Vendedor> list = vdao.findByIdDepartamento(departamento);
 		
 		System.out.println("\n=== Teste 3 : finAll ===");
-		
 		List<Vendedor> lsvend = vdao.finAll();
 		
 		for (Vendedor vend : lsvend) {
 			System.out.println(vend);
 		}
+		
+		System.out.println("\n=== Teste 4 : insert ===");
+		Vendedor insertvendedor = new Vendedor(null, "Eduardo", "eduardo.eesf@gmail.com", new Date(), 4700.0, departamento);
+		vdao.insert(insertvendedor);
+		System.out.println("Inserido! Novo id: " + insertvendedor.getId());
 	}
 
 }
